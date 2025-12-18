@@ -14,7 +14,7 @@ pipeline {
         APP_NAME = 'validacion-service'
         APP_VERSION = '1.0.0'
         DOCKERHUB_REPO = 'ricardoahumada/validacion-service'
-        OPENSHIFT_PROJECT = "mutualidad-${params.ENVIRONMENT}"
+        OPENSHIFT_PROJECT = "ricardoag-${params.ENVIRONMENT}"
     }
 
     options {
