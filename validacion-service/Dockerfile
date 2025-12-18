@@ -21,6 +21,9 @@ RUN addgroup --system --gid 1001 appgroup && \
 
 RUN apk add --no-cache curl
 
+# Crear directorio de logs (permisos para OpenShift con UID aleatorio)
+RUN mkdir -p /app/logs && chmod 777 /app/logs
+
 COPY --from=builder /app/target/*.jar app.jar
 RUN chown appuser:appgroup app.jar
 
