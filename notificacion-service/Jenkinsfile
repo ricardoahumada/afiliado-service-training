@@ -88,6 +88,9 @@ pipeline {
                             echo "Deploying to ${OPENSHIFT_PROJECT} with ${valuesFile}..."
                             cd charts/notificacion-service-chart
                             
+                            echo "Building chart dependencies..."
+                            helm dependency build
+                            
                             helm upgrade --install ${APP_NAME} . \\
                                 --namespace ${OPENSHIFT_PROJECT} \\
                                 --values ${valuesFile} \\
