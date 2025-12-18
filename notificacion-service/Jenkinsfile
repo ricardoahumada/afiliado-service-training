@@ -40,7 +40,7 @@ pipeline {
                 dir('notificacion-service') {
                     sh """
                         echo "Building ${APP_NAME}..."
-                        ./mvnw clean package -DskipTests=${params.SKIP_TESTS}
+                        mvn clean package -DskipTests=${params.SKIP_TESTS}
                     """
                 }
             }
