@@ -29,9 +29,10 @@ pipeline {
             steps {
                 checkout scm
                 script {
-                    // Detectar rama actual
-                    env.BRANCH_NAME = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    // Detectar rama actual (quitar prefijo origin/)
+                    env.BRANCH_NAME = env.GIT_BRANCH?.replaceFirst(/^origin\//, '') ?: 'unknown'
                     env.GIT_COMMIT_SHORT = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                    echo "GIT_BRANCH: ${env.GIT_BRANCH}"
                     
                     // Leer version del pom.xml
                     def pom = readMavenPom file: 'validacion-service/pom.xml'
