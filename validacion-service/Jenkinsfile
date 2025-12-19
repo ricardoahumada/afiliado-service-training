@@ -97,7 +97,7 @@ pipeline {
                                 --set image.tag=${IMAGE_TAG} \\
                                 --set image.repository=${DOCKERHUB_REPO} \\
                                 --wait \\
-                                --timeout 5m \\
+                                --timeout 10m \\
                                 --atomic
                             
                             echo "Deployment completed successfully"
