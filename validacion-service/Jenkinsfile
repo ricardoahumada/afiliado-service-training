@@ -36,11 +36,14 @@ pipeline {
                     
                     // Leer version del pom.xml
                     def pom = readMavenPom file: 'validacion-service/pom.xml'
-                    env.APP_VERSION = pom.version.replace('-SNAPSHOT', '')
+                    def version = pom.version ?: pom.parent?.version ?: '1.0.0'
+                    def appVersion = version.replace('-SNAPSHOT', '')
+                    env.APP_VERSION = appVersion
+                    echo "APP_VERSION: ${appVersion}"
                     
                     // GitFlow: Generar IMAGE_TAG segun la rama
                     if (env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'master') {
-                        env.IMAGE_TAG = "${env.APP_VERSION}"
+                        env.IMAGE_TAG = appVersion
                     } else if (env.BRANCH_NAME.startsWith('release/')) {
                         def releaseVersion = env.BRANCH_NAME.replace('release/', '')
                         env.IMAGE_TAG = "rc-${releaseVersion}-${BUILD_NUMBER}"
